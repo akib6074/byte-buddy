@@ -1,0 +1,27 @@
+name: Test:MethodGraphCompilerDefaultTest.testGenericNonOverriddenClassExtension
+run-name: Known Flaky test testGenericNonOverriddenClassExtension
+on: [push]
+jobs:
+  Test_Without_Nondex_Shuffling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Test
+        run: mvn -pl byte-buddy-dep test -Dtest=net.bytebuddy.dynamic.scaffold.MethodGraphCompilerDefaultTest#testGenericNonOverriddenClassExtension
+        
+  Test_With_Nondex_Shuffling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Test
+        run: mvn -pl byte-buddy-dep edu.illinois:nondex-maven-plugin:1.1.2:nondex -Dtest=net.bytebuddy.dynamic.scaffold.MethodGraphCompilerDefaultTest#testGenericNonOverriddenClassExtension
